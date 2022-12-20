@@ -26,6 +26,11 @@ def convert_deci_to_degree(deci):
     return str(round(degree, 4)) + 'ᵒ'
 
 
+def convert_deci_to_velocity(deci):
+    velocity = deci * 0.012207031
+    return str(round(velocity, 4)) + ' m/sec'
+
+
 def read_signed_decimal(address):
     decimal_list = spi.xfer([address, 0x00])
     if decimal_list is None or len(decimal_list) != 2:
@@ -89,20 +94,37 @@ def read_z_deltang_out():
     return convert_deci_to_degree(read_signed_decimal(0x2F))    
 
 
+def read_x_deltvel_out():
+    return convert_deci_to_velocity(read_signed_decimal(0x33))    
+
+
+def read_y_deltvel_out():
+    return convert_deci_to_velocity(read_signed_decimal(0x37))    
+
+
+def read_z_deltvel_out():
+    return convert_deci_to_velocity(read_signed_decimal(0x3B))    
+
+
 
 while(True):
-    # print('x_gyro_out: ' + read_x_gyro_out())
-    # print('y_gyro_out: ' + read_y_gyro_out())
-    # print('z_gyro_out: ' + read_z_gyro_out())
-    # print('================================')
-    # time.sleep(0.2)
-    # print('x_accl_out: ' + read_x_accl_out())
-    # print('y_accl_out: ' + read_y_accl_out())
-    # print('z_accl_out: ' + read_z_accl_out())
-    # print('================================')
+    print('x_gyro_out: ' + read_x_gyro_out())
+    print('y_gyro_out: ' + read_y_gyro_out())
+    print('z_gyro_out: ' + read_z_gyro_out())
+    print('================================')
+    time.sleep(0.2)
+    print('x_accl_out: ' + read_x_accl_out())
+    print('y_accl_out: ' + read_y_accl_out())
+    print('z_accl_out: ' + read_z_accl_out())
+    print('================================')
     time.sleep(0.2)
     print('x_deltang_out: ' + read_x_deltang_out())
     print('y_deltang_out: ' + read_y_deltang_out())
     print('z_deltang_out: ' + read_z_deltang_out())
+    print('================================')
+    time.sleep(0.2)   
+    print('x_deltvel_out: ' + read_x_deltvel_out())
+    print('y_deltvel_out: ' + read_y_deltvel_out())
+    print('z_deltvel_out: ' + read_z_deltvel_out())
     print('================================')
     time.sleep(0.2)
